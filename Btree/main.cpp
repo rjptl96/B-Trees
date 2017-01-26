@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     
     //ifstream inf(argv[1]);
      ifstream inf("BTree5_1.txt");
+    //LOCAL
     
     inf.getline(s, 80);
     
