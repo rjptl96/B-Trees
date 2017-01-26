@@ -183,6 +183,7 @@ LeafNode* LeafNode::remove(int value)
                 }
                 
                 getLeftSibling()->setRightSibling(NULL);
+                
                 parent->resetMinimum(this);
                 this->setParent(NULL);
                 delete this;
