@@ -182,7 +182,10 @@ LeafNode* LeafNode::remove(int value)
                     getLeftSibling()->insert(values[insertpos]);
                 }
                 
-                getLeftSibling()->setRightSibling(NULL);
+                if(getRightSibling() != NULL)
+                    getLeftSibling()-> setRightSibling(getRightSibling());
+                else
+                    getLeftSibling() -> setRightSibling(NULL);
                 
                 parent->resetMinimum(this);
                 this->setParent(NULL);
