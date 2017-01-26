@@ -190,11 +190,29 @@ BTreeNode* InternalNode::remove(int value)
             //we go to that children in pos and call remove, might go to leaf node or internal
             if (children[pos]->remove(value) == NULL)
             {
-                cout << "DELETE THIS HSIT";
+                for (int mergepos = pos; pos < count; pos++)
+                {
+                    
+                    
+                    if (mergepos == count -1)
+                    {
+                        children[mergepos] = 0;
+                        break;
+                    }
+                    children[mergepos] = children[mergepos+1];
+                    
+                }
+                count--;
             }
-            //set key to the minimum value in that child, just so if the first value in the child is removed we can make sure
-            keys[pos] = children[pos]->getMinimum();
             
+            //TODO: RESET KEYS
+            //set key to the minimum value in that child, just so if the first value in the child is removed we can make sure
+            /*for (int reset = 0; reset < count; count++)
+            {
+                resetMinimum(children[reset]);
+            }
+            //keys[pos] = children[pos]->getMinimum();
+            */
             
             break;
         }

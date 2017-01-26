@@ -12,6 +12,12 @@ LeafNode::LeafNode(int LSize, InternalNode *p,
 {
   values = new int[LSize];
 }  // LeafNode()
+
+LeafNode::~LeafNode()
+{
+    delete values;
+}
+
 void LeafNode::addToLeft(int value, int last)
 {
   leftSibling->insert(values[0]);
@@ -165,6 +171,8 @@ LeafNode* LeafNode::remove(int value)
                 count++;
                 getLeftSibling()->remove(values[0]);
                 
+                parent->resetMinimum(this);
+                
             }
             else
             {
@@ -173,7 +181,10 @@ LeafNode* LeafNode::remove(int value)
                 {
                     getLeftSibling()->insert(values[insertpos]);
                 }
+                
                 getLeftSibling()->setRightSibling(NULL);
+                parent->resetMinimum(this);
+                this->setParent(NULL);
                 delete this;
                 return NULL;
                 
@@ -191,20 +202,18 @@ LeafNode* LeafNode::remove(int value)
                 getRightSibling()->remove(values[count]);
                 
             }
-            //call the siblings remove
-            
-            
-            
-            
+            else
+            {
+                
+                //MERGE WITH RIGHT
+                //WItht the insert code of right
+                
+            }
         }
-        else
-        {
         
-        //This thang doesnt have any siblings
-        }
     }
     
-  return NULL;  // filler for stub
+  return this;  // filler for stub
 }  // LeafNode::remove()
 
 

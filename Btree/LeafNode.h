@@ -9,7 +9,7 @@ class LeafNode:public BTreeNode
 public:
   LeafNode(int LSize, InternalNode *p, BTreeNode *left,
     BTreeNode *right);
-    
+    ~LeafNode();
   void addToLeft(int value, int last);
   void addToRight(int value, int last);
   void addToThis(int value);
