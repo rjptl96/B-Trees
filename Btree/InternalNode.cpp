@@ -201,18 +201,23 @@ BTreeNode* InternalNode::remove(int value)
   return NULL; // filler for stub
 } // InternalNode::remove(int value)
 
-int InternalNode::getfromthis()
-{
-    //YET TO BEIMPLEMEntED
-    return 0;
-}
+
 
 int* InternalNode::getkeysorvalues()
 {
     return keys;
 }
 
-
+bool InternalNode::getfromright(int &end)
+{
+  //YET TO BE IMPLEMENTED
+    return 0;
+}
+bool InternalNode::getfromleft()
+{
+    //YET TO BE IMPLEMENTED
+    return 0;
+}
 
 void InternalNode::resetMinimum(const BTreeNode* child)
 {

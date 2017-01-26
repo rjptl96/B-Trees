@@ -149,18 +149,32 @@ LeafNode* LeafNode::remove(int value)
         if (leftSibling != NULL)
         {
             int getfromleft;
-            getfromleft = leftSibling->getfromthis();
-            values[count] = getfromleft;
             count++;
-                        
+            getfromleft = leftSibling->getfromleft();
+            if (getfromleft == 1)
+            {
+                cout << "YAY";
+            }
+            else if(getfromleft == 0)
+            {
+                cout << "Gotta Merge";
+            }
+            
         }
         else if (rightSibling != NULL)
         {
             int getfromright;
-            getfromright = rightSibling->getfromthis();
+            getfromright = rightSibling->getfromright(count);
             
-            values[count] = getfromright;
-            count++;
+            if (getfromright == 1)
+            {
+                cout << "YAY";
+            }
+            else if(getfromright == 0)
+            {
+                cout << "Gotta Merge";
+            }
+            
             
             
         }
@@ -174,7 +188,17 @@ LeafNode* LeafNode::remove(int value)
   return NULL;  // filler for stub
 }  // LeafNode::remove()
 
-int LeafNode::getfromthis()
+
+
+int* LeafNode::getkeysorvalues()
+{
+    return values;
+}
+
+
+
+
+bool LeafNode::getfromright(int &end)
 {
     if ( count -1 >= getminsize() )
     {
@@ -187,20 +211,41 @@ int LeafNode::getfromthis()
         count--;
         //reset the parents key for min
         parent->resetMinimum(this);
+        leftSibling->getkeysorvalues()[end] = returnedvalue;
+        end++;
         
-        return returnedvalue;
+        return 1;
     }
     else
     {
         return 0;
     }
+
+    
+}
+bool LeafNode::getfromleft()
+{
+    if ( count -1 >= getminsize() )
+    {
+        int returnedvalue = values[count-1];
+        //rightSibling
+        
+        count--;
+        rightSibling->getkeysorvalues()[1] = rightSibling->getkeysorvalues()[0];
+        rightSibling->getkeysorvalues()[0] = returnedvalue;
+        
+    
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+
     
 }
 
-int* LeafNode::getkeysorvalues()
-{
-    return values;
-}
+
 
 int LeafNode::getminsize()
 {

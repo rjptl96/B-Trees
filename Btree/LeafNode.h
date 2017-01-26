@@ -23,7 +23,9 @@ public:
     
     
     ///REMOVE FUNCS
-    int getfromthis();
+    
+     bool getfromright(int &end) ;
+     bool getfromleft() ;
     int getminsize();
     int* getkeysorvalues();
     

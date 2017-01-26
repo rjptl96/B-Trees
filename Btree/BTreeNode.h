@@ -32,7 +32,9 @@ public:
     
     
     //REMOVE DUNCS
-    virtual int getfromthis() = 0;
+    
+    virtual bool getfromright(int &end) = 0;
+    virtual bool getfromleft() = 0;
     virtual int* getkeysorvalues() = 0;
 }; //BTreeNode class
 

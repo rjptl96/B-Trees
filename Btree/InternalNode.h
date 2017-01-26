@@ -27,7 +27,9 @@ public:
   InternalNode* split(BTreeNode *last);
     
     //REMOVE FUNCS
-    int getfromthis();
+    
+    bool getfromright(int &end) ;
+    bool getfromleft() ;
     int* getkeysorvalues();
 
     
