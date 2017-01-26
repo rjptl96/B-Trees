@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		CD3105091E393C2800264C5B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3105081E393C2800264C5B /* main.cpp */; };
+		CD3105191E393D1900264C5B /* LeafNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3105101E393D1900264C5B /* LeafNode.cpp */; };
+		CD31051A1E393D1900264C5B /* InternalNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3105121E393D1900264C5B /* InternalNode.cpp */; };
+		CD31051B1E393D1900264C5B /* BTreeNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3105151E393D1900264C5B /* BTreeNode.cpp */; };
+		CD31051D1E393D1900264C5B /* BTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3105181E393D1900264C5B /* BTree.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +29,15 @@
 /* Begin PBXFileReference section */
 		CD3105051E393C2800264C5B /* Btree */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Btree; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD3105081E393C2800264C5B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		CD31050F1E393D1900264C5B /* LeafNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeafNode.h; sourceTree = "<group>"; };
+		CD3105101E393D1900264C5B /* LeafNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeafNode.cpp; sourceTree = "<group>"; };
+		CD3105111E393D1900264C5B /* InternalNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InternalNode.h; sourceTree = "<group>"; };
+		CD3105121E393D1900264C5B /* InternalNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InternalNode.cpp; sourceTree = "<group>"; };
+		CD3105131E393D1900264C5B /* dsexceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dsexceptions.h; sourceTree = "<group>"; };
+		CD3105141E393D1900264C5B /* BTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTreeNode.h; sourceTree = "<group>"; };
+		CD3105151E393D1900264C5B /* BTreeNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BTreeNode.cpp; sourceTree = "<group>"; };
+		CD3105171E393D1900264C5B /* BTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTree.h; sourceTree = "<group>"; };
+		CD3105181E393D1900264C5B /* BTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BTree.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +71,15 @@
 			isa = PBXGroup;
 			children = (
 				CD3105081E393C2800264C5B /* main.cpp */,
+				CD31050F1E393D1900264C5B /* LeafNode.h */,
+				CD3105101E393D1900264C5B /* LeafNode.cpp */,
+				CD3105111E393D1900264C5B /* InternalNode.h */,
+				CD3105121E393D1900264C5B /* InternalNode.cpp */,
+				CD3105131E393D1900264C5B /* dsexceptions.h */,
+				CD3105141E393D1900264C5B /* BTreeNode.h */,
+				CD3105151E393D1900264C5B /* BTreeNode.cpp */,
+				CD3105171E393D1900264C5B /* BTree.h */,
+				CD3105181E393D1900264C5B /* BTree.cpp */,
 			);
 			path = Btree;
 			sourceTree = "<group>";
@@ -119,7 +141,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD31051A1E393D1900264C5B /* InternalNode.cpp in Sources */,
 				CD3105091E393C2800264C5B /* main.cpp in Sources */,
+				CD31051B1E393D1900264C5B /* BTreeNode.cpp in Sources */,
+				CD3105191E393D1900264C5B /* LeafNode.cpp in Sources */,
+				CD31051D1E393D1900264C5B /* BTree.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
