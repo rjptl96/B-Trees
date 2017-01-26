@@ -142,6 +142,7 @@ LeafNode* LeafNode::remove(int value)
             }
            
             count--;
+            //IF IT has a parent, reset its min value (only in cases where the first element of the values was deleted will this be helpful)
             if (parent != NULL)
             {
                 parent->resetMinimum(this);
@@ -157,19 +158,20 @@ LeafNode* LeafNode::remove(int value)
     //Check if the leaf has become smaller than minimum size
     if (count < (leafSize + 1) / 2)
     {
+        //IF it has then try borrowing/merging
         //check if left sib exists
         if (getLeftSibling() != NULL)
         {
             //if it exists chck if it can give up an int
             if (getLeftSibling()->getCount() -1 >= (leafSize + 1) / 2)
             {
-                for (int d = 0; d < count; d++)
-                {
-                    values[d+1] = values[d];
-                }
+                //for (int d = 0; d < count; d++)
+                //{
+                  //  values[d+1] = values[d];
+                //}
                 
-                values[0] = getLeftSibling()->getMaximum();
-                count++;
+                insert(getLeftSibling()->getMaximum());
+                //count++;
                 getLeftSibling()->remove(values[0]);
                 
                 parent->resetMinimum(this);
@@ -186,9 +188,16 @@ LeafNode* LeafNode::remove(int value)
                 
                 //
                 if(getRightSibling() != NULL)
+                {
+                    //if this child has a right sib set its left sib's right sib as this childs right sib
                     getLeftSibling()-> setRightSibling(getRightSibling());
+                    //and set this childs right sib's left sib as this child's left sib
+                    getRightSibling()->setLeftSibling(getLeftSibling());
+                }
                 else
+                {
                     getLeftSibling() -> setRightSibling(NULL);
+                }
                 
                 parent->resetMinimum(this);
                 this->setParent(NULL);
@@ -204,14 +213,34 @@ LeafNode* LeafNode::remove(int value)
         {
             if (getRightSibling()->getCount() -1 >= (leafSize + 1) / 2)
             {
-                values[count] = getRightSibling()->getMinimum();
-                count++;
-                getRightSibling()->remove(values[count]);
+                //values[count] = getRightSibling()->getMinimum();
+                insert(getRightSibling()->getMinimum());
+                //count++;
+                getRightSibling()->remove(values[count-1]);
                 
             }
             else
             {
+                for (int insertpos = 0; insertpos < count; insertpos++)
+                {
+                    getRightSibling()->insert(values[insertpos]);
+                }
+                if(getLeftSibling() != NULL)
+                {
+                    //if this child has a right sib set its left sib's right sib as this childs right sib
+                    getRightSibling()-> setLeftSibling(getLeftSibling());
+                    //and set this childs right sib's left sib as this child's left sib
+                    getLeftSibling()->setRightSibling(getRightSibling());
+                }
+                else
+                {
+                    getRightSibling()->setLeftSibling(NULL);
                 
+                }
+                this->setParent(NULL);
+                delete this;
+                return NULL;
+
                 cout << "MERGE WITH RIGHT";
                 //WItht the insert code of right
                 

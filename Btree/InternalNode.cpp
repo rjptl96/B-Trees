@@ -190,7 +190,8 @@ BTreeNode* InternalNode::remove(int value)
             //we go to that children in pos and call remove, might go to leaf node or internal
             if (children[pos]->remove(value) == NULL)
             {
-                for (int mergepos = pos; pos < count; pos++)
+                
+                for (int mergepos = pos; mergepos < count-1; mergepos++)
                 {
                     
                     
@@ -201,6 +202,7 @@ BTreeNode* InternalNode::remove(int value)
                         
                     }
                     children[mergepos] = children[mergepos+1];
+                    resetMinimum(children[mergepos]);
                     cout << keys[mergepos];
                     
                 }
