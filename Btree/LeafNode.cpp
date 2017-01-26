@@ -12,7 +12,6 @@ LeafNode::LeafNode(int LSize, InternalNode *p,
 {
   values = new int[LSize];
 }  // LeafNode()
-
 void LeafNode::addToLeft(int value, int last)
 {
   leftSibling->insert(values[0]);
@@ -137,43 +136,63 @@ LeafNode* LeafNode::remove(int value)
             }
            
             count--;
+            if (parent != NULL)
+            {
+                parent->resetMinimum(this);
+            }
             
             break;
         }
     }
+    
     //END:No BORROW
+    
     
     //Check if the leaf has become smaller than minimum size
     if (count < (leafSize + 1) / 2)
     {
-        if (leftSibling != NULL)
+        //check if left sib exists
+        if (getLeftSibling() != NULL)
         {
-            int getfromleft;
-            count++;
-            getfromleft = leftSibling->getfromleft();
-            if (getfromleft == 1)
+            //if it exists chck if it can give up an int
+            if (getLeftSibling()->getCount() -1 >= (leafSize + 1) / 2)
             {
-                cout << "YAY";
+                for (int d = 0; d < count; d++)
+                {
+                    values[d+1] = values[d];
+                }
+                values[0] = getLeftSibling()->getMaximum();
+                count++;
+                getLeftSibling()->remove(values[0]);
+                
             }
-            else if(getfromleft == 0)
+            else
             {
-                cout << "Gotta Merge";
+                //if it cant give up a value, merge
+                for (int insertpos = 0; insertpos < count; insertpos++)
+                {
+                    getLeftSibling()->insert(values[insertpos]);
+                }
+                getLeftSibling()->setRightSibling(NULL);
+                delete this;
+                return NULL;
+                
             }
+            
+
             
         }
-        else if (rightSibling != NULL)
+        else if (getRightSibling() != NULL)
         {
-            int getfromright;
-            getfromright = rightSibling->getfromright(count);
+            if (getRightSibling()->getCount() -1 >= (leafSize + 1) / 2)
+            {
+                values[count] = getRightSibling()->getMinimum();
+                count++;
+                getRightSibling()->remove(values[count]);
+                
+            }
+            //call the siblings remove
             
-            if (getfromright == 1)
-            {
-                cout << "YAY";
-            }
-            else if(getfromright == 0)
-            {
-                cout << "Gotta Merge";
-            }
             
             
             
@@ -187,64 +206,6 @@ LeafNode* LeafNode::remove(int value)
     
   return NULL;  // filler for stub
 }  // LeafNode::remove()
-
-
-
-int* LeafNode::getkeysorvalues()
-{
-    return values;
-}
-
-
-
-
-bool LeafNode::getfromright(int &end)
-{
-    if ( count -1 >= getminsize() )
-    {
-        int returnedvalue = values[0];
-        for (int d = 0; d < count-1; d++)
-        {
-            values[d] = values[d+1];
-        }
-        
-        count--;
-        //reset the parents key for min
-        parent->resetMinimum(this);
-        leftSibling->getkeysorvalues()[end] = returnedvalue;
-        end++;
-        
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-
-    
-}
-bool LeafNode::getfromleft()
-{
-    if ( count -1 >= getminsize() )
-    {
-        int returnedvalue = values[count-1];
-        //rightSibling
-        
-        count--;
-        rightSibling->getkeysorvalues()[1] = rightSibling->getkeysorvalues()[0];
-        rightSibling->getkeysorvalues()[0] = returnedvalue;
-        
-    
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-
-    
-}
-
 
 
 int LeafNode::getminsize()

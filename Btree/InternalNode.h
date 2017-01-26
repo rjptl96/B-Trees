@@ -26,12 +26,7 @@ public:
   void resetMinimum(const BTreeNode* child);
   InternalNode* split(BTreeNode *last);
     
-    //REMOVE FUNCS
-    
-    bool getfromright(int &end) ;
-    bool getfromleft() ;
-    int* getkeysorvalues();
-
+ 
     
     
     

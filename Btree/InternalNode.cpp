@@ -187,13 +187,15 @@ BTreeNode* InternalNode::remove(int value)
         //if a key is smaller than the value we need to delete, we go into that node
         if (keys[pos] <= value)
         {
-            //int where;
-            //where = keys[pos];
-            //cout << where;
             //we go to that children in pos and call remove, might go to leaf node or internal
-            children[pos]->remove(value);
+            if (children[pos]->remove(value) == NULL)
+            {
+                cout << "DELETE THIS HSIT";
+            }
             //set key to the minimum value in that child, just so if the first value in the child is removed we can make sure
             keys[pos] = children[pos]->getMinimum();
+            
+            
             break;
         }
         
@@ -202,22 +204,6 @@ BTreeNode* InternalNode::remove(int value)
 } // InternalNode::remove(int value)
 
 
-
-int* InternalNode::getkeysorvalues()
-{
-    return keys;
-}
-
-bool InternalNode::getfromright(int &end)
-{
-  //YET TO BE IMPLEMENTED
-    return 0;
-}
-bool InternalNode::getfromleft()
-{
-    //YET TO BE IMPLEMENTED
-    return 0;
-}
 
 void InternalNode::resetMinimum(const BTreeNode* child)
 {

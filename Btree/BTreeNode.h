@@ -30,12 +30,6 @@ public:
   void setParent(InternalNode *p);
   void setRightSibling(BTreeNode *right);
     
-    
-    //REMOVE DUNCS
-    
-    virtual bool getfromright(int &end) = 0;
-    virtual bool getfromleft() = 0;
-    virtual int* getkeysorvalues() = 0;
 }; //BTreeNode class
 
 #endif

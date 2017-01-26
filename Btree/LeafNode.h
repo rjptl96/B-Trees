@@ -9,6 +9,7 @@ class LeafNode:public BTreeNode
 public:
   LeafNode(int LSize, InternalNode *p, BTreeNode *left,
     BTreeNode *right);
+    
   void addToLeft(int value, int last);
   void addToRight(int value, int last);
   void addToThis(int value);
@@ -23,11 +24,8 @@ public:
     
     
     ///REMOVE FUNCS
-    
-     bool getfromright(int &end) ;
-     bool getfromleft() ;
+     
     int getminsize();
-    int* getkeysorvalues();
     
 
 }; //LeafNode class
