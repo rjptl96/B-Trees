@@ -196,10 +196,12 @@ BTreeNode* InternalNode::remove(int value)
                     
                     if (mergepos == count -1)
                     {
-                        children[mergepos] = 0;
+                        children[mergepos] = NULL;
                         break;
+                        
                     }
                     children[mergepos] = children[mergepos+1];
+                    cout << keys[mergepos];
                     
                 }
                 count--;

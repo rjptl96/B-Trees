@@ -167,6 +167,7 @@ LeafNode* LeafNode::remove(int value)
                 {
                     values[d+1] = values[d];
                 }
+                
                 values[0] = getLeftSibling()->getMaximum();
                 count++;
                 getLeftSibling()->remove(values[0]);
@@ -177,11 +178,13 @@ LeafNode* LeafNode::remove(int value)
             else
             {
                 //if it cant give up a value, merge
+                //Push all the stuff from tight sib to left sib
                 for (int insertpos = 0; insertpos < count; insertpos++)
                 {
                     getLeftSibling()->insert(values[insertpos]);
                 }
                 
+                //
                 if(getRightSibling() != NULL)
                     getLeftSibling()-> setRightSibling(getRightSibling());
                 else
@@ -209,7 +212,7 @@ LeafNode* LeafNode::remove(int value)
             else
             {
                 
-                //MERGE WITH RIGHT
+                cout << "MERGE WITH RIGHT";
                 //WItht the insert code of right
                 
             }
