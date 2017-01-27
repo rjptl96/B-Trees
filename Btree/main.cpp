@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     bool first = true;
     //BTree tree(atoi(argv[2]), atoi(argv[3]));
     //first value is ISize ^    Second is Lsize^
-    BTree tree(3, 3);
+    BTree tree(4, 3);
     int value;
     char s[80], command;
     
