@@ -203,7 +203,7 @@ BTreeNode* InternalNode::remove(int value)
                     }
                     children[mergepos] = children[mergepos+1];
                     resetMinimum(children[mergepos]);
-                    cout << keys[mergepos];
+                    //cout << keys[mergepos];
                     
                 }
                 count--;
