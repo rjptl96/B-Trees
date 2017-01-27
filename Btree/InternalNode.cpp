@@ -222,7 +222,11 @@ BTreeNode* InternalNode::remove(int value)
         }
         
     }
-  return NULL; // filler for stub
+    //if (parent != NULL)
+    //{
+      //  parent->resetMinimum(this);
+    //}
+  return this;
 } // InternalNode::remove(int value)
 
 

@@ -246,6 +246,10 @@ LeafNode* LeafNode::remove(int value)
                 
             }
         }
+        else
+        {
+            cout << "IT GOT NO SIBLING CUH";
+        }
         
     }
     
