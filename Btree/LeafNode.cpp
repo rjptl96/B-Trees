@@ -156,14 +156,14 @@ LeafNode* LeafNode::remove(int value)
     
     
     //Check if the leaf has become smaller than minimum size
-    if (count < (leafSize + 1) / 2)
+    if (count < getminsize())
     {
         //IF it has then try borrowing/merging
         //check if left sib exists
         if (getLeftSibling() != NULL)
         {
             //if it exists chck if it can give up an int
-            if (getLeftSibling()->getCount() -1 >= (leafSize + 1) / 2)
+            if (getLeftSibling()->getCount() -1 >= getminsize())
             {
                 //for (int d = 0; d < count; d++)
                 //{
@@ -211,7 +211,7 @@ LeafNode* LeafNode::remove(int value)
         }
         else if (getRightSibling() != NULL)
         {
-            if (getRightSibling()->getCount() -1 >= (leafSize + 1) / 2)
+            if (getRightSibling()->getCount() -1 >= getminsize())
             {
                 //values[count] = getRightSibling()->getMinimum();
                 insert(getRightSibling()->getMinimum());
@@ -241,7 +241,7 @@ LeafNode* LeafNode::remove(int value)
                 delete this;
                 return NULL;
 
-                cout << "MERGE WITH RIGHT";
+                //cout << "MERGE WITH RIGHT";
                 //WItht the insert code of right
                 
             }
