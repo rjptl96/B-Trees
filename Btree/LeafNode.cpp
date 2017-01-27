@@ -165,13 +165,10 @@ LeafNode* LeafNode::remove(int value)
             //if it exists chck if it can give up an int
             if (getLeftSibling()->getCount() -1 >= getminsize())
             {
-                //for (int d = 0; d < count; d++)
-                //{
-                  //  values[d+1] = values[d];
-                //}
+           
                 
                 insert(getLeftSibling()->getMaximum());
-                //count++;
+                
                 getLeftSibling()->remove(values[0]);
                 
                 parent->resetMinimum(this);
@@ -213,9 +210,9 @@ LeafNode* LeafNode::remove(int value)
         {
             if (getRightSibling()->getCount() -1 >= getminsize())
             {
-                //values[count] = getRightSibling()->getMinimum();
+                
                 insert(getRightSibling()->getMinimum());
-                //count++;
+                
                 getRightSibling()->remove(values[count-1]);
                 
             }
@@ -241,9 +238,6 @@ LeafNode* LeafNode::remove(int value)
                 delete this;
                 return NULL;
 
-                //cout << "MERGE WITH RIGHT";
-                //WItht the insert code of right
-                
             }
         }
         else
