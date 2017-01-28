@@ -191,11 +191,12 @@ BTreeNode* InternalNode::remove(int value)
             //we go to that children in pos and call remove, might go to leaf node or internal
             if (children[pos]->remove(value) == NULL)
             {
+                //if it returns null, we know two leaves have merged
                 leafbelow = true;
                 for (int mergepos = pos; mergepos < count-1; mergepos++)
                 {
                     
-                    
+                    //if the right most leaf was deleted then just set that position to null
                     if (mergepos == count -1)
                     {
                         children[mergepos] = NULL;
@@ -207,6 +208,7 @@ BTreeNode* InternalNode::remove(int value)
                     //cout << keys[mergepos];
                     
                 }
+                //decrement the count for the internal node
                 count--;
             }
             
@@ -249,11 +251,54 @@ BTreeNode* InternalNode::remove(int value)
             
             if (getRightSibling()->getCount() -1 >= getminsize())
             {
-                cout << "Gotta get with right";
+                /**/
+                 
+                 //HEre we het the first leaf from the right sib
+                 children[count] = ((InternalNode*)rightSibling)->children[0];
+                
+                //after getting that leaf, change its parent pointer to this internal node
+                children[count]->setParent(this);
+                 //children[count]->setLeftSibling(children[count-1]);
+                 //children[count]->setRightSibling(NULL);
+                
+                //increment the count of this internal node
+                 count++;
+                
+                //reset min of the this internal node and its parent
+                 resetMinimum(children[count-1]);
+                 //
+                
+                //move everything over to the left in the right sibling
+                 for (int i = 0; i < rightSibling->getCount() -1 ; i++)
+                 {
+                 ((InternalNode*)rightSibling)->children[i] = ((InternalNode*)rightSibling)->children[i+1];
+                 
+                 
+                 ((InternalNode*)rightSibling)->resetMinimum(((InternalNode*)rightSibling)->children[i]);
+                 
+                 }
+                
+                //Decrment the size of the right sib
+                 ((InternalNode*)rightSibling)->count--;
+                
+                
+                 //((InternalNode*)rightSibling)->children[0]->setLeftSibling(NULL);
+                 
+                 if (((InternalNode*)rightSibling)->parent != NULL)
+                 {
+                 ((InternalNode*)rightSibling)->parent->resetMinimum(rightSibling);
+                 }
+                 
+                 
+                 /**/
             }
             else
             {
+                //WRITE THE MERGE CODE DONT MESS WITH ANYTING ELSE NOW
+                //for (int i = 0; i < count)
                 cout << "Gotta merge with right";
+                
+                
             }
 
             

@@ -145,6 +145,7 @@ LeafNode* LeafNode::remove(int value)
             //IF IT has a parent, reset its min value (only in cases where the first element of the values was deleted will this be helpful)
             if (parent != NULL)
             {
+                //changed from  parent->resetMinimum(this) to below
                 parent->resetMinimum(this);
             }
             
@@ -158,6 +159,8 @@ LeafNode* LeafNode::remove(int value)
     //Check if the leaf has become smaller than minimum size
     if (count < getminsize())
     {
+        
+        
         //IF it has then try borrowing/merging
         //check if left sib exists
         if (getLeftSibling() != NULL)
@@ -212,7 +215,7 @@ LeafNode* LeafNode::remove(int value)
             {
                 
                 insert(getRightSibling()->getMinimum());
-                
+                //1/28 chnge getRightSibling()->remove(values[count-1]); to below
                 getRightSibling()->remove(values[count-1]);
                 
             }
@@ -244,7 +247,7 @@ LeafNode* LeafNode::remove(int value)
         {
             if (parent != NULL)
             {
-            //HERE we put code to borrow/merge with the parent's siblings
+             cout << "This leaf has no sibs"; //HERE we put code to borrow/merge with the parent's siblings
             }
             
         }
