@@ -209,23 +209,18 @@ BTreeNode* InternalNode::remove(int value)
                 count--;
             }
             
-            //TODO: RESET KEYS
-            //set key to the minimum value in that child, just so if the first value in the child is removed we can make sure
-            /*for (int reset = 0; reset < count; count++)
-            {
-                resetMinimum(children[reset]);
-            }
-            //keys[pos] = children[pos]->getMinimum();
-            */
-            
             break;
         }
         
     }
-    //if (parent != NULL)
-    //{
-      //  parent->resetMinimum(this);
-    //}
+    
+    //if there is only one node left with one child, return to Btree te pointer to child
+    if (count == 1 && (getRightSibling() == NULL) && (getLeftSibling() == NULL) && (parent == NULL) )
+    {
+        return children[0];
+    }
+    
+
   return this;
 } // InternalNode::remove(int value)
 

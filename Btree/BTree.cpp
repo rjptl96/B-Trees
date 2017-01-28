@@ -40,5 +40,7 @@ void BTree::print()
 
 void BTree::remove(int value)
 {
-    root->remove(value);
+    root = root->remove(value);
+    
+
 } // BTree::remove()

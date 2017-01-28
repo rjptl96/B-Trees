@@ -11,12 +11,12 @@ int main(int argc, char *argv[])
     bool first = true;
     //BTree tree(atoi(argv[2]), atoi(argv[3]));
     //first value is ISize ^    Second is Lsize^
-    BTree tree(5, 3);
+    BTree tree(2, 4);
     int value;
     char s[80], command;
     
     //ifstream inf(argv[1]);
-     ifstream inf("BTree18_18.txt");
+     ifstream inf("BTree5_3.txt");
     
     inf.getline(s, 80);
     
