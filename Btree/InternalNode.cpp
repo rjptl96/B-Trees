@@ -217,6 +217,7 @@ BTreeNode* InternalNode::remove(int value)
     //if there is only one node left with one child, return to Btree te pointer to child
     if (count == 1 && (getRightSibling() == NULL) && (getLeftSibling() == NULL) && (parent == NULL) )
     {
+        children[0]->setParent(NULL);
         return children[0];
     }
     

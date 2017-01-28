@@ -242,7 +242,11 @@ LeafNode* LeafNode::remove(int value)
         }
         else
         {
-            cout << "IT GOT NO SIBLING CUH";
+            if (parent != NULL)
+            {
+            //HERE we put code to borrow/merge with the parent's siblings
+            }
+            
         }
         
     }
