@@ -26,7 +26,8 @@ public:
   void resetMinimum(const BTreeNode* child);
   InternalNode* split(BTreeNode *last);
     
- 
+    //Min function
+    int getminsize();
     
     
     

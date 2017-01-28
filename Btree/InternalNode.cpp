@@ -180,6 +180,7 @@ void InternalNode::print(Queue <BTreeNode*> &queue)
 BTreeNode* InternalNode::remove(int value)
 {  // to be written by students
     int pos;
+    bool leafbelow = false;
     
     //Go from last key to first, check if any will work
     for(pos = count - 1; pos > -1 ; pos--)
@@ -190,7 +191,7 @@ BTreeNode* InternalNode::remove(int value)
             //we go to that children in pos and call remove, might go to leaf node or internal
             if (children[pos]->remove(value) == NULL)
             {
-                
+                leafbelow = true;
                 for (int mergepos = pos; mergepos < count-1; mergepos++)
                 {
                     
@@ -214,12 +215,56 @@ BTreeNode* InternalNode::remove(int value)
         
     }
     
+    
+    
     //if there is only one node left with one child, return to Btree te pointer to child
     if (count == 1 && (getRightSibling() == NULL) && (getLeftSibling() == NULL) && (parent == NULL) )
     {
         children[0]->setParent(NULL);
         return children[0];
     }
+    
+    
+    //Here we check if an internal node has less children then the minimum required
+    if ((count < getminsize() || count == 1)&& parent != NULL  && leafbelow == true)
+    {
+        //Check left sib
+        if (getLeftSibling() != NULL)
+        {
+            if (getLeftSibling()->getCount() -1 >= getminsize())
+            {
+                cout << "Gotta get with left";
+            }
+            else
+            {
+                cout << "Gotta merge with left";
+            }
+
+            
+        }
+        
+        //Check right sib
+        else if (getRightSibling() != NULL)
+        {
+            
+            if (getRightSibling()->getCount() -1 >= getminsize())
+            {
+                cout << "Gotta get with right";
+            }
+            else
+            {
+                cout << "Gotta merge with right";
+            }
+
+            
+            
+        }
+        
+        
+        
+    }
+    
+    
     
 
   return this;
@@ -265,3 +310,9 @@ InternalNode* InternalNode::split(BTreeNode *last)
   return newptr;
 } // split()
 
+
+
+int InternalNode::getminsize()
+{
+    return ((internalSize + 1) / 2);
+}
