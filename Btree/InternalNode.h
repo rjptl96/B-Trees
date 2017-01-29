@@ -25,10 +25,16 @@ public:
   BTreeNode* remove(int value);
   void resetMinimum(const BTreeNode* child);
   InternalNode* split(BTreeNode *last);
+    ~InternalNode();
+    
     
     //Min function
     int getminsize();
-    
+    void borrowRight();
+    void borrowLeft();
+    void mergeRight();
+    void mergeLeft();
+
     
     
 }; // InternalNode class

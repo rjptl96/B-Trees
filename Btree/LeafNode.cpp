@@ -160,7 +160,6 @@ LeafNode* LeafNode::remove(int value)
     if (count < getminsize())
     {
         
-        
         //IF it has then try borrowing/merging
         //check if left sib exists
         if (getLeftSibling() != NULL)
@@ -169,39 +168,14 @@ LeafNode* LeafNode::remove(int value)
             if (getLeftSibling()->getCount() -1 >= getminsize())
             {
            
-                
-                insert(getLeftSibling()->getMaximum());
-                
-                getLeftSibling()->remove(values[0]);
-                
-                parent->resetMinimum(this);
+                borrowLeft();
                 
             }
             else
             {
                 //if it cant give up a value, merge
                 //Push all the stuff from tight sib to left sib
-                for (int insertpos = 0; insertpos < count; insertpos++)
-                {
-                    getLeftSibling()->insert(values[insertpos]);
-                }
-                
-                //
-                if(getRightSibling() != NULL)
-                {
-                    //if this child has a right sib set its left sib's right sib as this childs right sib
-                    getLeftSibling()-> setRightSibling(getRightSibling());
-                    //and set this childs right sib's left sib as this child's left sib
-                    getRightSibling()->setLeftSibling(getLeftSibling());
-                }
-                else
-                {
-                    getLeftSibling() -> setRightSibling(NULL);
-                }
-                
-                parent->resetMinimum(this);
-                this->setParent(NULL);
-                delete this;
+                mergeLeft();
                 return NULL;
                 
             }
@@ -214,31 +188,12 @@ LeafNode* LeafNode::remove(int value)
             if (getRightSibling()->getCount() -1 >= getminsize())
             {
                 
-                insert(getRightSibling()->getMinimum());
-                //1/28 chnge getRightSibling()->remove(values[count-1]); to below
-                getRightSibling()->remove(values[count-1]);
+                borrowRight();
                 
             }
             else
             {
-                for (int insertpos = 0; insertpos < count; insertpos++)
-                {
-                    getRightSibling()->insert(values[insertpos]);
-                }
-                if(getLeftSibling() != NULL)
-                {
-                    //if this child has a right sib set its left sib's right sib as this childs right sib
-                    getRightSibling()-> setLeftSibling(getLeftSibling());
-                    //and set this childs right sib's left sib as this child's left sib
-                    getLeftSibling()->setRightSibling(getRightSibling());
-                }
-                else
-                {
-                    getRightSibling()->setLeftSibling(NULL);
-                
-                }
-                this->setParent(NULL);
-                delete this;
+                mergeRight();
                 return NULL;
 
             }
@@ -248,6 +203,7 @@ LeafNode* LeafNode::remove(int value)
             if (parent != NULL)
             {
              cout << "This leaf has no sibs"; //HERE we put code to borrow/merge with the parent's siblings
+                //This place should be off limits, if the L and I size is > 2
             }
             
         }
@@ -262,6 +218,76 @@ int LeafNode::getminsize()
 {
     return ((leafSize + 1) / 2);
 }
+
+void LeafNode::borrowRight()
+{
+    insert(getRightSibling()->getMinimum());
+    //1/28 chnge getRightSibling()->remove(values[count-1]); to below
+    getRightSibling()->remove(values[count-1]);
+    parent->resetMinimum(this);
+}
+
+void LeafNode::borrowLeft()
+{
+    insert(getLeftSibling()->getMaximum());
+    
+    getLeftSibling()->remove(values[0]);
+    
+    parent->resetMinimum(this);
+
+}
+
+
+void LeafNode::mergeRight()
+{
+    for (int insertpos = 0; insertpos < count; insertpos++)
+    {
+        getRightSibling()->insert(values[insertpos]);
+    }
+    if(getLeftSibling() != NULL)
+    {
+        //if this child has a right sib set its left sib's right sib as this childs right sib
+        getRightSibling()-> setLeftSibling(getLeftSibling());
+        //and set this childs right sib's left sib as this child's left sib
+        getLeftSibling()->setRightSibling(getRightSibling());
+    }
+    else
+    {
+        getRightSibling()->setLeftSibling(NULL);
+        
+    }
+    this->setParent(NULL);
+    delete this;
+
+}
+void LeafNode::mergeLeft()
+{
+    //Push all the stuff from tight sib to left sib
+    for (int insertpos = 0; insertpos < count; insertpos++)
+    {
+        getLeftSibling()->insert(values[insertpos]);
+    }
+    
+    //
+    if(getRightSibling() != NULL)
+    {
+        //if this child has a right sib set its left sib's right sib as this childs right sib
+        getLeftSibling()-> setRightSibling(getRightSibling());
+        //and set this childs right sib's left sib as this child's left sib
+        getRightSibling()->setLeftSibling(getLeftSibling());
+    }
+    else
+    {
+        getLeftSibling() -> setRightSibling(NULL);
+    }
+    
+    parent->resetMinimum(this);
+    this->setParent(NULL);
+    delete this;
+}
+
+
+
 
 
 LeafNode* LeafNode::split(int value, int last)

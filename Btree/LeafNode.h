@@ -26,8 +26,10 @@ public:
     ///REMOVE FUNCS
      
     int getminsize();
-    
-
+    void borrowRight();
+    void borrowLeft();
+    void mergeRight();
+    void mergeLeft();
 }; //LeafNode class
 
 #endif

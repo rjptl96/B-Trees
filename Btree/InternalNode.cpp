@@ -204,6 +204,7 @@ BTreeNode* InternalNode::remove(int value)
                         
                     }
                     children[mergepos] = children[mergepos+1];
+                    
                     resetMinimum(children[mergepos]);
                     //cout << keys[mergepos];
                     
@@ -225,6 +226,12 @@ BTreeNode* InternalNode::remove(int value)
         children[0]->setParent(NULL);
         return children[0];
     }
+    
+    //if (count == 1 )
+    //{
+        //children[0]->setParent(NULL);
+        //return children[0];
+    //}
     
     
     //Here we check if an internal node has less children then the minimum required
@@ -251,52 +258,14 @@ BTreeNode* InternalNode::remove(int value)
             
             if (getRightSibling()->getCount() -1 >= getminsize())
             {
-                /**/
-                 
-                 //HEre we het the first leaf from the right sib
-                 children[count] = ((InternalNode*)rightSibling)->children[0];
-                
-                //after getting that leaf, change its parent pointer to this internal node
-                children[count]->setParent(this);
-                 //children[count]->setLeftSibling(children[count-1]);
-                 //children[count]->setRightSibling(NULL);
-                
-                //increment the count of this internal node
-                 count++;
-                
-                //reset min of the this internal node and its parent
-                 resetMinimum(children[count-1]);
-                 //
-                
-                //move everything over to the left in the right sibling
-                 for (int i = 0; i < rightSibling->getCount() -1 ; i++)
-                 {
-                 ((InternalNode*)rightSibling)->children[i] = ((InternalNode*)rightSibling)->children[i+1];
-                 
-                 
-                 ((InternalNode*)rightSibling)->resetMinimum(((InternalNode*)rightSibling)->children[i]);
-                 
-                 }
-                
-                //Decrment the size of the right sib
-                 ((InternalNode*)rightSibling)->count--;
-                
-                
-                 //((InternalNode*)rightSibling)->children[0]->setLeftSibling(NULL);
-                 
-                 if (((InternalNode*)rightSibling)->parent != NULL)
-                 {
-                 ((InternalNode*)rightSibling)->parent->resetMinimum(rightSibling);
-                 }
-                 
-                 
-                 /**/
+                borrowRight();
             }
             else
             {
                 //WRITE THE MERGE CODE DONT MESS WITH ANYTING ELSE NOW
-                //for (int i = 0; i < count)
-                cout << "Gotta merge with right";
+                mergeRight();
+                return NULL;
+                //cout << "Gotta merge with right";
                 
                 
             }
@@ -361,3 +330,92 @@ int InternalNode::getminsize()
 {
     return ((internalSize + 1) / 2);
 }
+
+void InternalNode::borrowLeft()
+{
+    
+}
+
+void InternalNode::mergeLeft()
+{
+    
+}
+
+void InternalNode::borrowRight()
+{
+    /**/
+    
+    //HEre we het the first leaf from the right sib
+    children[count] = ((InternalNode*)rightSibling)->children[0];
+    
+    //after getting that leaf, change its parent pointer to this internal node
+    children[count]->setParent(this);
+
+    
+    //increment the count of this internal node
+    count++;
+    
+    //reset min of the this internal node and its parent
+    resetMinimum(children[count-1]);
+    //
+    
+    //move everything over to the left in the right sibling
+    for (int i = 0; i < rightSibling->getCount() -1 ; i++)
+    {
+        ((InternalNode*)rightSibling)->children[i] = ((InternalNode*)rightSibling)->children[i+1];
+        
+        
+        ((InternalNode*)rightSibling)->resetMinimum(((InternalNode*)rightSibling)->children[i]);
+        
+    }
+    
+    //Decrment the size of the right sib
+    ((InternalNode*)rightSibling)->count--;
+    
+    
+    
+    if (((InternalNode*)rightSibling)->parent != NULL)
+    {
+        ((InternalNode*)rightSibling)->parent->resetMinimum(rightSibling);
+    }
+    
+    
+    /**/
+
+}
+
+void InternalNode::mergeRight()
+{
+    //GIve all the children to the right sibling
+    for (int i =0; i < count; i++)
+    {
+        //children[i]->setParent(((InternalNode*)getRightSibling()));
+        addToRight(children[i], children[i]);
+    }
+    
+    //If left sib is no null
+    if (getLeftSibling() != NULL)
+    {
+        //set the right sibling's left sibling as this siblings left sibling
+        getRightSibling()->setLeftSibling(getLeftSibling());
+        //set this right sibling of this sibling's left sibling as the right sibling of this sibling
+        getLeftSibling()->setRightSibling(getRightSibling());
+    }
+    else
+    {
+        //if no left sib exists, set the right sib's left sib as NULL
+        getRightSibling()->setLeftSibling(NULL);
+    }
+
+    delete this;    
+}
+
+
+InternalNode::~InternalNode()
+{
+    delete keys;
+    delete children;
+}
+
+
+
