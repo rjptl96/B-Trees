@@ -405,14 +405,16 @@ void InternalNode::borrowRight()
     /**/
     
     //HEre we het the first leaf from the right sib
-    children[count] = ((InternalNode*)rightSibling)->children[0];
+    //children[count] = ((InternalNode*)rightSibling)->children[0];
+    
+    addToThis(((InternalNode*)rightSibling)->children[0], count);
     
     //after getting that leaf, change its parent pointer to this internal node
-    children[count]->setParent(this);
+    //children[count]->setParent(this);
 
     
     //increment the count of this internal node
-    count++;
+    //count++;
     
     //reset min of the this internal node and its parent
     resetMinimum(children[count-1]);
