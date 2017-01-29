@@ -243,7 +243,8 @@ BTreeNode* InternalNode::remove(int value)
             //see if we can borrow from left
             if (getLeftSibling()->getCount() -1 >= getminsize())
             {
-                cout << "Gotta get with left";
+                //cout << "Gotta get with left";
+                borrowLeft();
             }
             //else merge with left
             else
@@ -336,7 +337,37 @@ int InternalNode::getminsize()
 
 void InternalNode::borrowLeft()
 {
+    /**/
     
+    //HEre we het the first leaf from the right sib
+    //children[count] = ((InternalNode*)getLeftSibling())->children[getLeftSibling()->getCount()-1];
+    
+    addToThis(((InternalNode*)getLeftSibling())->children[getLeftSibling()->getCount()-1],0);
+    
+    
+    //after getting that leaf, change its parent pointer to this internal node
+    children[count]->setParent(this);
+    
+    
+    //increment the count of this internal node
+    //count++;
+    
+    //reset min of the this internal node and its parent
+    //resetMinimum(children[count-1]);
+    //
+    
+    
+    //Decrment the size of the right sib
+    ((InternalNode*)getLeftSibling())->count--;
+    
+    //delete ((InternalNode*)getLeftSibling())->children[getLeftSibling()->getCount()];
+    
+    
+    
+  
+    
+    /**/
+
 }
 
 void InternalNode::mergeLeft()
