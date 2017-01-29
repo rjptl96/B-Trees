@@ -240,13 +240,16 @@ BTreeNode* InternalNode::remove(int value)
         //Check left sib
         if (getLeftSibling() != NULL)
         {
+            //see if we can borrow from left
             if (getLeftSibling()->getCount() -1 >= getminsize())
             {
                 cout << "Gotta get with left";
             }
+            //else merge with left
             else
             {
-                cout << "Gotta merge with left";
+                mergeLeft();
+                return NULL;
             }
 
             
@@ -338,6 +341,31 @@ void InternalNode::borrowLeft()
 
 void InternalNode::mergeLeft()
 {
+    //GIve all the children to the right sibling
+    for (int i =0; i < count; i++)
+    {
+        //children[i]->setParent(((InternalNode*)getRightSibling()));
+        addToLeft(children[i]);
+    }
+    
+    //If left sib is no null
+    if (getRightSibling() != NULL)
+    {
+        //set the right sibling's left sibling as this siblings left sibling
+        getLeftSibling()->setRightSibling(getRightSibling());
+        //set this right sibling of this sibling's left sibling as the right sibling of this sibling
+        getRightSibling()->setLeftSibling(getLeftSibling());
+    }
+    else
+    {
+        //if no left sib exists, set the right sib's left sib as NULL
+        getLeftSibling()->setRightSibling(NULL);
+    }
+    
+    delete this;
+
+    
+    
     
 }
 
