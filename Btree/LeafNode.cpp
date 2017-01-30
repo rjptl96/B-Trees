@@ -183,17 +183,21 @@ LeafNode* LeafNode::remove(int value)
 
             
         }
+        //check if the right sib exists
         else if (getRightSibling() != NULL)
         {
+            //if it does, check if it can give up a value
             if (getRightSibling()->getCount() -1 >= getminsize())
             {
-                
+                //if yes, borrow that value
                 borrowRight();
                 
             }
             else
             {
+                //else merge with it
                 mergeRight();
+                //return NULL to the internal node remove function so we can take care of the keys and children
                 return NULL;
 
             }
@@ -221,18 +225,21 @@ int LeafNode::getminsize()
 
 void LeafNode::borrowRight()
 {
+    //borrow the smallest value from right sib
     insert(getRightSibling()->getMinimum());
-    //1/28 chnge getRightSibling()->remove(values[count-1]); to below
+    //then delete that value from the right since we have borrowed it
     getRightSibling()->remove(values[count-1]);
+    //reset the keys of this child's parents
     parent->resetMinimum(this);
 }
 
 void LeafNode::borrowLeft()
 {
+    //get the max value fro the left
     insert(getLeftSibling()->getMaximum());
-    
+    //delete that value from the left
     getLeftSibling()->remove(values[0]);
-    
+    //reset the keys for this parent
     parent->resetMinimum(this);
 
 }
