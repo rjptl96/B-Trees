@@ -13,6 +13,7 @@ public:
   void insert(int value);
   void print();
   void remove(int value);
+    ~BTree();
 }; // BTree class
 #endif
 

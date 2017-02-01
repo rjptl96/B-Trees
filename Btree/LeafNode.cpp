@@ -15,7 +15,11 @@ LeafNode::LeafNode(int LSize, InternalNode *p,
 
 LeafNode::~LeafNode()
 {
-    delete values;
+    delete [] values;
+    values = NULL;
+    setLeftSibling(NULL);
+    setRightSibling(NULL);
+    setParent(NULL);
 }
 
 void LeafNode::addToLeft(int value, int last)

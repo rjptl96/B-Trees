@@ -44,3 +44,9 @@ void BTree::remove(int value)
     
 
 } // BTree::remove()
+
+
+BTree::~BTree()
+{
+    delete root;
+}

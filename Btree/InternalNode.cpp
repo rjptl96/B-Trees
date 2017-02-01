@@ -474,8 +474,9 @@ void InternalNode::mergeRight()
 
 InternalNode::~InternalNode()
 {
-    delete keys;
-    delete children;
+    
+    delete [] keys;
+    delete [] children;
 }
 
 
