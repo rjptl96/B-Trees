@@ -210,7 +210,7 @@ LeafNode* LeafNode::remove(int value)
         {
             if (parent != NULL)
             {
-             cout << "This leaf has no sibs"; //HERE we put code to borrow/merge with the parent's siblings
+             //cout << "This leaf has no sibs"; //HERE we put code to borrow/merge with the parent's siblings
                 //This place should be off limits, if the L and I size is > 2
             }
             

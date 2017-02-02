@@ -224,7 +224,9 @@ BTreeNode* InternalNode::remove(int value)
     if (count == 1 && (getRightSibling() == NULL) && (getLeftSibling() == NULL) && (parent == NULL) )
     {
         children[0]->setParent(NULL);
-        return children[0];
+        BTreeNode *returnednode = children[0];
+        delete this;
+        return returnednode;
     }
     
     //if (count == 1 )
